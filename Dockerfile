@@ -1,6 +1,5 @@
 FROM nvcr.io/nvidia/isaac-sim:5.1.0
 
-ARG OVSHARE_GID=3001
 USER root
 # Create group with matching GID and add isaac-sim user
 RUN groupadd -g ${OVSHARE_GID} ovshare \
