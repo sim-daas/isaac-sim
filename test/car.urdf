@@ -1,48 +1,55 @@
 <?xml version="1.0" ?>
 
-<robot name="drone">
+<robot name="car">
 
   <material name="white">
-    <color rgba="0.9 0.9 0.9 1.0"/>
+    <color rgba="0.7 0.7 0.7 1.0"/>
   </material>
   <material name="green">
-    <color rgba="0.0 0.8 0.0 1.0"/>
+    <color rgba="0.0 0.0 0.0 1.0"/>
   </material>
 
+  <link name="base_footprint">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </link>
 
   <link name="base_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.2 0.1 0.05"/>
+        <box size="0.4 0.3 0.1"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.2 0.1 0.05"/>
+        <box size="0.4 0.3 0.1"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="1.0"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.016"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.02" ixy="0" ixz="0" iyy="0.02" iyz="0" izz="0.032"/>
     </inertial>
   </link>
+  <joint name="base_footprint_to_base_link" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.08"/>
+  </joint>
 
-
-  <link name="front_right_prop">
+  <link name="front_left_wheel">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.12"/>
+        <cylinder length="0.05" radius="0.08"/>
       </geometry>
       <material name="green"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.12"/>
+        <cylinder length="0.05" radius="0.08"/>
       </geometry>
     </collision>
     <inertial>
@@ -50,27 +57,25 @@
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
   </link>
-  <joint name="base_to_front_right_prop" type="revolute">
+  <joint name="base_link_to_front_left_wheel" type="revolute">
     <parent link="base_link"/>
-    <child link="front_right_prop"/>
-    <origin xyz="0.16 -0.16 0"/>
-    <axis xyz="0 0 1"/>
-    <limit lower="0" upper="0" effort="10" velocity="100"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="0.15 0.15 0"/>
+    <axis xyz="0 1 0"/>
   </joint>
 
-
-  <link name="back_left_prop">
+  <link name="front_right_wheel">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.12"/>
+        <cylinder length="0.05" radius="0.08"/>
       </geometry>
       <material name="green"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.12"/>
+        <cylinder length="0.05" radius="0.08"/>
       </geometry>
     </collision>
     <inertial>
@@ -78,27 +83,25 @@
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
   </link>
-  <joint name="base_to_back_left_prop" type="revolute">
+  <joint name="base_link_to_front_right_wheel" type="revolute">
     <parent link="base_link"/>
-    <child link="back_left_prop"/>
-    <origin xyz="-0.16 0.16 0"/>
-    <axis xyz="0 0 1"/>
-    <limit lower="0" upper="0" effort="10" velocity="100"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="0.15 -0.15 0"/>
+    <axis xyz="0 1 0"/>
   </joint>
 
-
-  <link name="front_left_prop">
+  <link name="back_left_wheel">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.12"/>
+        <cylinder length="0.05" radius="0.08"/>
       </geometry>
       <material name="green"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.12"/>
+        <cylinder length="0.05" radius="0.08"/>
       </geometry>
     </collision>
     <inertial>
@@ -106,27 +109,25 @@
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
   </link>
-  <joint name="base_to_front_left_prop" type="revolute">
+  <joint name="base_link_to_back_left_wheel" type="revolute">
     <parent link="base_link"/>
-    <child link="front_left_prop"/>
-    <origin xyz="0.16 0.16 0"/>
-    <axis xyz="0 0 1"/>
-    <limit lower="0" upper="0" effort="10" velocity="100"/>
+    <child link="back_left_wheel"/>
+    <origin xyz="-0.15 0.15 0"/>
+    <axis xyz="0 1 0"/>
   </joint>
 
-
-  <link name="back_right_prop">
+  <link name="back_right_wheel">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.12"/>
+        <cylinder length="0.05" radius="0.08"/>
       </geometry>
       <material name="green"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.12"/>
+        <cylinder length="0.05" radius="0.08"/>
       </geometry>
     </collision>
     <inertial>
@@ -134,27 +135,11 @@
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
   </link>
-  <joint name="base_to_back_right_prop" type="revolute">
+  <joint name="base_link_to_back_right_wheel" type="revolute">
     <parent link="base_link"/>
-    <child link="back_right_prop"/>
-    <!-- joint of child is xyz away from parent -->
-    <origin xyz="-0.16 -0.16 0"/>
-    <axis xyz="0 0 1"/>
-    <limit lower="0" upper="0" effort="10" velocity="100"/>
-  </joint>
-
-  <link name="body">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
-  </link>
-  <joint name="body_link" type="fixed">
-    <parent link="base_link"/>
-    <child link="body"/>
-    <origin xyz="0 0 0"/>
-    <axis xyz="0 0 0"/>
+    <child link="back_right_wheel"/>
+    <origin xyz="-0.15 -0.15 0"/>
+    <axis xyz="0 1 0"/>
   </joint>
 
 </robot>
