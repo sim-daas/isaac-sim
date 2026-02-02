@@ -59,6 +59,17 @@ my_world = World(stage_units_in_meters=1.0)
 # start the simulator
 for i in range(3):
     my_world.reset()
+    
+    import carb
+    settings = carb.settings.get_settings()
+
+    # Perform a few steps to let the renderer initialize
+    for _ in range(10):
+        simulation_app.update()
+
+    # Slam the settings again
+    settings.set("/rtx/post/dlss/auto", False)
+    settings.set("/rtx/post/dlss/execMode", 0)
     print("simulator running", i)
     if i == 1:
         print("Adding Physics Properties to the Visual Cube")
