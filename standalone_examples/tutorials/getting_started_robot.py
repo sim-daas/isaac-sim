@@ -15,7 +15,23 @@
 
 from isaacsim import SimulationApp
 
-simulation_app = SimulationApp({"headless": False})  # start the simulation app, with GUI open
+simulation_app = SimulationApp({"headless": False, "height": 720, "width": 1280, "hide_ui": False, "renderer": "RayTracedLighting"})  # start the simulation app, with GUI open
+
+import time
+def printfps(frame_count, start_time):
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    fps = frame_count / elapsed_time if elapsed_time > 0 else 0
+    print(f"FPS: {fps:.2f}", end="\r")    
+    frame_count += 1
+    return frame_count
+
+def optimise():
+    import carb
+    settings = carb.settings.get_settings()
+    simulation_app.update()
+    # settings.set("/rtx/post/dlss/auto", False)
+    settings.set("/rtx/post/dlss/execMode", 0)
 
 import sys
 
@@ -57,6 +73,10 @@ car.set_world_poses(positions=np.array([[0.0, -1.0, 0.0]]) / get_stage_units())
 # initialize the world
 my_world.reset()
 
+optimise()
+frame_count = 0
+start_time= time.time()
+
 for i in range(4):
     print("running cycle: ", i)
     if i == 1 or i == 3:
@@ -72,12 +92,13 @@ for i in range(4):
         # stop the car
         car.set_joint_velocities([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
 
-    for j in range(100):
+    for j in range(300):
         # step the simulation, both rendering and physics
         my_world.step(render=True)
+        frame_count = printfps(frame_count, start_time)
         # print the joint positions of the car at every physics step
         if i == 3:
             car_joint_positions = car.get_joint_positions()
-            print("car joint positions:", car_joint_positions)
+            # print("car joint positions:", car_joint_positions)
 
 simulation_app.close()
