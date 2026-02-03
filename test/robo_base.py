@@ -1,6 +1,6 @@
 from isaacsim import SimulationApp
 
-launch_config = {"headless": False, "height": 1080, "width": 1920, "hide_ui": True, "renderer": "RayTracedLighting"}
+launch_config = {"headless": False, "height": 1080, "width": 1920, "hide_ui": False, "renderer": "RayTracedLighting"}
 simulation_app = SimulationApp(launch_config)
 
 import time
@@ -38,16 +38,17 @@ assets_root_path = get_assets_root_path()
 asset_path = assets_root_path + "/Isaac/Robots/NVIDIA/NovaCarter/nova_carter.usd"
 add_reference_to_stage(usd_path=asset_path, prim_path="/World/Car")
 car = world.scene.add(Robot(prim_path="/World/Car", name="my_car"))
-
 world.reset()
 optimise()
 frame_count = 0
 start_time= time.time()
+print(car.dof_names)
 
 while simulation_app.is_running():
     world.step(render=True)
     frame_count = printfps(frame_count, start_time)
-    car.apply_action(ArticulationAction(joint_positions=None, joint_efforts=None, joint_velocities=[6, 6, 0, 0, 0, 0, 0]))
+    car.apply_action(ArticulationAction(joint_positions=None, joint_efforts=None, joint_velocities=[0, 3, 3, 0, 0, 0, 0]))
+    # car.set_world_velocity([0.3, 0, 0, 0, 0, 1])
 
 
 # closing the app
