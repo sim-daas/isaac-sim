@@ -16,7 +16,6 @@ def optimise():
     import carb
     settings = carb.settings.get_settings()
     simulation_app.update()
-    # settings.set("/rtx/post/dlss/auto", False)
     settings.set("/rtx/post/dlss/execMode", 0)
 
 
