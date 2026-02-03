@@ -46,27 +46,11 @@ frame_count = 0
 start_time= time.time()
 
 while simulation_app.is_running():
-    # 1. Step the world
-    world.step(render=True)
-    frame_count = printfps(frame_count, start_time)
     for i in range(360):
         world.step(render=True)
         frame_count = printfps(frame_count, start_time)
         machine.set_joint_positions([[i * 3.14 / 180, i * 3.14 / 180]])
 
 
-
-
-
-
-
-
-
-
-
-    
-    
-    
-   
 # closing the app
 simulation_app.close()
