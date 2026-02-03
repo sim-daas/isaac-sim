@@ -50,7 +50,7 @@ start_time= time.time()
 while simulation_app.is_running():
     world.step(render=True)
     frame_count = printfps(frame_count, start_time)
-    car_controller.apply_action(ArticulationAction(joint_positions=None, joint_efforts=None, joint_velocities=[6, -1, 6, -1]))
+    car_controller.apply_action(ArticulationAction(joint_positions=None, joint_efforts=None, joint_velocities=[6, 1, 6, 1]))
 
 
 # closing the app
