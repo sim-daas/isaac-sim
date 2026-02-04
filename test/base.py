@@ -1,6 +1,6 @@
 from isaacsim import SimulationApp
 
-launch_config = {"headless": False, "height": 720, "width": 1280, "hide_ui": True, "renderer": "RayTracedLighting"}
+launch_config = {"headless": False, "height": 720, "width": 1280, "hide_ui": False, "renderer": "RayTracedLighting"}
 simulation_app = SimulationApp(launch_config)
 
 import time
@@ -25,14 +25,17 @@ def optimise():
 
 import omni
 from isaacsim.core.api import World
+from isaacsim.storage.native import get_assets_root_path
 from isaacsim.core.api.objects import VisualCuboid
+from isaacsim.core.utils.stage import add_reference_to_stage, get_stage_units
 
 
 # Scene setup
 world = World(stage_units_in_meters=1.0)
-world.scene.add_default_ground_plane()
-
-
+# world.scene.add_default_ground_plane()
+assets_root_path = get_assets_root_path()
+asset_path = assets_root_path + "/Isaac/Environments/Simple_Room/simple_room.usd"
+room = add_reference_to_stage(usd_path=asset_path, prim_path="/World/SimpleRoom")
 
 
 
