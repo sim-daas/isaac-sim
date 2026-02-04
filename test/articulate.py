@@ -33,7 +33,7 @@ world.scene.add_default_ground_plane()
 
 import os 
 home_path = os.path.expanduser("~")
-asset_path = os.path.join(home_path, "gitrepos/isaac-sim/test")
+asset_path = os.path.join(home_path, "gitrepos/isaac-sim/models")
 robo_path = asset_path + "/machine.usd"
 print(robo_path)
 add_reference_to_stage(usd_path=robo_path, prim_path="/World/Machine")
