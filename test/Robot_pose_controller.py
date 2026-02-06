@@ -1,6 +1,6 @@
 from isaacsim import SimulationApp
 
-launch_config = {"headless": False, "height": 1080, "width": 1920, "window_height": 1080, "window_width": 1920, "hide_ui": True, "renderer": "RayTracedLighting"}
+launch_config = {"headless": False, "height": 720, "width": 1280, "window_height": 1080, "window_width": 1920, "hide_ui": True, "renderer": "RayTracedLighting"}
 simulation_app = SimulationApp(launch_config)
 
 import time
@@ -23,7 +23,6 @@ def optimise():
 
 
 from isaacsim.core.api import World
-from isaacsim.core.utils.types import ArticulationAction
 from isaacsim.robot.wheeled_robots.robots import WheeledRobot 
 from isaacsim.robot.wheeled_robots.controllers import DifferentialController
 from isaacsim.robot.wheeled_robots.controllers import WheelBasePoseController
@@ -48,11 +47,6 @@ car_controller = WheelBasePoseController(name="car_controller", open_loop_wheel_
 
 world.reset()
 optimise()
-
-# Allow physics to stabilize after reset
-for _ in range(10):
-    world.step(render=False)
-
 frame_count = 0
 start_time= time.time()
 print(car.dof_names)
@@ -64,7 +58,7 @@ while simulation_app.is_running():
     # car.set_linear_velocity([0.2, 0.2, 0])  # inherits this from Robot class
     # car.apply_wheel_actions(ArticulationAction(joint_velocities=[2, 2])) # one of the few additional methods in WheeledRobot
     position, orientation = car.get_world_pose()
-    car.apply_wheel_actions(car_controller.forward(start_position=position, start_orientation=orientation, goal_position=[6,6,0]))
+    car.apply_wheel_actions(car_controller.forward(start_position=position, start_orientation=orientation, goal_position=[6,-6,0])) # if apply_action is used then every joint needs to be specified
 
 # closing the app
 simulation_app.close()
